@@ -1,7 +1,4 @@
-// import { Header } from 'antd/es/layout/layout';
 import "./App.css";
-// import { format } from 'date-fns'
-// import dayjs from "dayjs";
 import moment from "moment";
 import { useState } from "react";
 import {
@@ -28,7 +25,6 @@ function App() {
   const [isEditable, setIsEditable] = useState(false);
   const [editedTask, setEditedTask] = useState({});
   const [isVisible, setisVisible] = useState(false);
-  const [data, setData] = useState({});
 
   const columns = [
     // a
@@ -119,12 +115,12 @@ function App() {
     },
   ];
 
-  // ADD TASK
+  //On ADD TASK
   const onAddTask = () => {
     setisVisible(true);
   };
 
-  // DELETE TASK
+  //On DELETE TASK
   const onDeleteTask = (record) => {
     Modal.confirm({
       title: "Are you sure, you want to delete this task?",
@@ -141,6 +137,7 @@ function App() {
     });
   };
 
+  // On EDIT TASK
   const onEditTask = (record) => {
     form.setFieldsValue({
       title: record?.title,
@@ -150,7 +147,6 @@ function App() {
       status: record?.status,
     });
 
-    setData(record);
     setEditedTask(record);
     setIsEditable(true);
   };
@@ -323,7 +319,10 @@ function App() {
             <DatePicker
               onChange={(e) => {
                 setEditedTask((pre) => {
-                  return { ...pre,due: moment(e, 'MM/DD/YYYY')?._i?.$d?.toLocaleDateString() };
+                  return {
+                    ...pre,
+                    due: moment(e, "MM/DD/YYYY")?._i?.$d?.toLocaleDateString(),
+                  };
                 });
               }}
               format={"MM/DD/YYYY"}
